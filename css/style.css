@@ -261,7 +261,7 @@ body {
 #content .section ul.accordion li.active .accordion_content {
     height: auto;
     opacity: 1;
-    padding: 48px 32px;
+    padding: 48px;
     border-top: 1px solid #444f63;
     transition: .5s;
 }
@@ -302,6 +302,7 @@ body {
 #content #scroll {
     position: fixed;
     width: 100%;
+    min-width: 1200px;
     bottom: 0;
     z-index: 1;
 }

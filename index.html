@@ -7,7 +7,7 @@
     <link rel="icon" href="./favicon_mzp.ico" />
 
     <meta property="og:title" content="Megazone PoPs">
-    <meta property="og:description" content="create a platform environment to provide integrated cloud experience and value to Megazone customers.">
+    <meta property="og:description" content="We create a platform environment to provide integrated cloud experience and value to Megazone customers.">
     <meta property="og:image" content="./img/og-megazone-pops.png">
     <meta property="og:url" content="https://pops.megazone.com">
 
@@ -252,55 +252,46 @@
         const item1 = document.querySelector(`#section1 .container`);
         const scrollEffect = document.querySelector(`#scroll .effect`);
 
-        const handleEvent = (query, action, className, time) => {
+        const handleEvent = (fn, time) => {
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    if(action === `remove`) {
-                        query.classList.remove(className);
-                    } else if (action === 'add') {
-                        query.classList.add(className);
-                    }
+                    fn();
                     resolve();
                 }, time);
             })
         };
 
         const startEvent = async () => {
-            let eventList = '';
-            let _handleEvent = async (query, action, className, time) => {
-                eventList += (eventList ? ', ' : '') + (await handleEvent(query, action, className, time));
+            let _handleEvent = async (fn, time) => {
+                await handleEvent(fn, time);
             };
-            await _handleEvent(wrap, `remove`, `loading`, 400);
-            await _handleEvent(item1, `add`, `show`, 400);
-            await _handleEvent(scrollEffect, `add`, `show`, 800);
-        }
+            await _handleEvent(() => wrap.classList.remove(`loading`), 400);
+            await _handleEvent(() => item1.classList.add(`show`), 400);
+            await _handleEvent(() => scrollEffect.classList.add(`show`), 800);
+        };
 
         window.addEventListener(`load`, () => {
             startEvent();
         });
 
         /* animation - scroll */
+        const sectionLength = document.querySelectorAll(`.section`).length;
+        const result = {};
 
-        // const sectionLength = document.querySelectorAll(`.section`).length;
+        for(let i = 1; i < sectionLength; i ++) {
+          const el = document.querySelector(`#section${i}`);
+          const value = el.getBoundingClientRect().bottom;
+          const next = document.querySelector(`#section${i + 1} .container`);
 
-        // for(let i = 1; i < sectionLength; i ++) {
-        //
-        // }
-
-        const section1 = document.querySelector(`#section1`);
-        const section2 = document.querySelector(`#section2`);
-        const section3 = document.querySelector(`#section3`);
-        const section4 = document.querySelector(`#section4`);
-
-        const endSection1 = section1.getBoundingClientRect().bottom;
-        const endSection2 = section2.getBoundingClientRect().bottom;
-        const endSection3 = section3.getBoundingClientRect().bottom;
-        const endSection4 = section4.getBoundingClientRect().bottom;
-
-        const item2 = document.querySelector(`#section2 .container`);
-        const item3 = document.querySelector(`#section3 .container`);
-        const item4 = document.querySelector(`#section4 .container`);
-        const item5 = document.querySelector(`#section5 .container`);
+          const payload = {
+            [`object${i}`]: {
+              el,
+              value,
+              next,
+            }
+          };
+          Object.assign(result, payload);
+        };
 
         window.addEventListener(`scroll`, () => {
             /* change header-bg-color */
@@ -314,18 +305,25 @@
             }
 
             /* show content */
-            if(scrollLocation > (endSection1 / 2)) {
-                item2.classList.add(`show`);
-            }
-            if(scrollLocation > (endSection2 / 1.2)) {
-                item3.classList.add(`show`);
-            }
-            if(scrollLocation > endSection3 / 1.2) {
-                item4.classList.add(`show`);
-            }
-            if(scrollLocation > endSection4 / 1.2) {
-                item5.classList.add(`show`);
-            }
+            Object.keys(result).map((v, i) => {
+                const value = result[v].value / (i === 0 ? 2 : 1.2);
+                scrollLocation > value
+                    && result[v].next.classList.add(`show`);
+            });
+
+            /* show content */
+            // if(scrollLocation > (endSection1 / 2)) {
+            //     item2.classList.add(`show`);
+            // }
+            // if(scrollLocation > (endSection2 / 1.2)) {
+            //     item3.classList.add(`show`);
+            // }
+            // if(scrollLocation > endSection3 / 1.2) {
+            //     item4.classList.add(`show`);
+            // }
+            // if(scrollLocation > endSection4 / 1.2) {
+            //     item5.classList.add(`show`);
+            // }
         });
 
         /* accordion-menu */
