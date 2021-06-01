@@ -114,6 +114,11 @@ body {
     margin: 0 auto;
 }
 
+#content {
+    position: relative;
+    z-index: 1;
+}
+
 #content .section {
     position: relative;
     width: 100%;
@@ -222,7 +227,7 @@ body {
 #content .section ul.list#type2 {}
 #content .section ul.list#type2:after {display: block;content: '';clear: both;}
 #content .section ul.list#type2 li {float: left;width: 50%;}
-#content .section ul.list#type2 li .box {padding: 40px 100px;min-height: 190px;}
+#content .section ul.list#type2 li .box {padding: 40px 100px;min-height: 220px;}
 #content .section ul.list#type2 li .box .icon {}
 #content .section ul.list#type2 li .box h4 {font-size: 20px;line-height: 30px;font-weight: normal;margin: 16px 0;}
 #content .section ul.list#type2 li .box p {font-size: 16px;line-height: 24px;text-align: left;margin-top: 16px;margin-bottom: 0;}
