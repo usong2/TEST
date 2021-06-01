@@ -6,9 +6,42 @@ body {
 #wrap {
     overflow-x: hidden;
     position: relative;
+    height: auto;
     width: 100%;
-    min-width: 1190px;
+    min-width: 1200px;
 }
+
+#wrap.loading {
+    overflow: hidden;
+    height: 100%;
+}
+
+#cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #252C34;
+    z-index: 1;
+    opacity: 0;
+    transition: all ease-in 0.5s 0s;
+}
+
+#wrap.loading #cover {
+    opacity: 1;
+    z-index: 9999;
+}
+
+/*#wrap .item1, #wrap .item2 {*/
+/*    opacity: 0;*/
+/*    top: 20px;*/
+/*    transition: all ease-in 1s 0s;*/
+/*}*/
+/*#wrap .item1.show, #wrap .item2.show {*/
+/*    top: 0;*/
+/*    opacity: 1;*/
+/*}*/
 
 #content {
     position: relative;
@@ -88,9 +121,18 @@ body {
 }
 
 #content .container {
+    position: relative;
     max-width: 1600px;
     width: 80%;
     margin: 0 auto;
+    opacity: 0;
+    top: 20px;
+    transition: all ease-in 0.5s 0s;
+}
+
+#content .container.show {
+    top: 0;
+    opacity: 1;
 }
 
 #content .section h3 {
@@ -203,7 +245,6 @@ body {
 #content .section ul.accordion li .accordion_content {
     height: 0;
     opacity: 0;
-    padding-left: 32px;
     overflow: hidden;
     transition: .2s;
 }
@@ -276,10 +317,14 @@ body {
     opacity: 0.1;
 }
 #content #scroll .icon .effect{
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
     animation: flow 1.2s linear infinite;
+}
+#content #scroll .icon .effect.show {
+    display: block;
 }
 
 /* section1 */
@@ -314,6 +359,7 @@ body {
 #content .section#section2 {}
 
 #content .section#section2 .container{
+    position: relative;
     padding-top: 40px
 }
 
@@ -322,16 +368,16 @@ body {
 }
 
 /* section3 */
-#content .section#section3 {margin-bottom: 240px;}
+#content .section#section3 {padding-top: 140px;padding-bottom: 240px;}
 
-#content .section#section3 .container{}
+#content .section#section3 .container{position: relative;}
 
 #content .section#section3 h3 {
     margin-bottom: 40px;
 }
 
 /* section4 */
-#content .section#section4 {padding: 0 0 80px 0;}
+#content .section#section4 {position: relative;z-index: 1;padding: 0 0 80px 0;}
 
 #content .section#section4 .container{}
 
@@ -344,7 +390,7 @@ body {
 }
 
 /* section5 */
-#content .section#section5 {background-color: #21272E;padding: 100px 0;}
+#content .section#section5 {background-color: #21272E;padding: 100px 0;overflow: hidden;}
 #content .section#section5 h3 {font-size: 40px;font-weight: normal;line-height: 60px;margin: 40px 0 30px 0;}
 #content .section#section5 p{font-size: 20px;line-height: 32px;margin-bottom: 40px;}
 
@@ -368,12 +414,26 @@ body {
     height: 400px;
 }
 
+.circle_box#c3 {
+    top: 450px;
+    left: -100px;
+    width: 450px;
+    height: 450px;
+}
+
+.circle_box#c4 {
+    bottom: -450px;
+    right: -400px;
+    width: 450px;
+    height: 450px;
+}
+
 .circle{
     box-sizing: border-box;
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 115% 140% 145% 110%/125% 140% 110% 125%;
+    border-radius: 140% 118% 115% 130%/190% 100% 170% 125%;
     mix-blend-mode: screen;
     transform-origin: 50% 50%;
     animation: spin 20s linear infinite;
